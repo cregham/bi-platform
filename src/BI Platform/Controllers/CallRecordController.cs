@@ -1,5 +1,6 @@
 ﻿using BI_Platform.Common.Storage;
 using BI_Platform.Models.CallRecord;
+using BI_Platform.Services.CallRecordService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,22 +10,18 @@ namespace BI_Platform.Controllers
     [ApiController]
     public class CallRecordController : ControllerBase
     {
-        public List<CallRecord> _callRecordService;
-        public CallRecordController()
+        private ICallRecordService _callRecordService;
+
+        public CallRecordController(ICallRecordService callRecordService)
         {
-            //In liu of live storage, use a singleton. Scope is application runtime
-            _callRecordService = CallRecordContext.Instance;
+            _callRecordService = callRecordService;
         }
 
         [HttpGet]
         public ActionResult<List<CallRecord>> Get()
         {
-            if (_callRecordService == null || _callRecordService.Count == 0)
-            {
-                return NotFound("No records found.");
-            }
-
-            return Ok(_callRecordService);
+            var callRecords = _callRecordService.GetAllRecords();
+            return Ok(callRecords);
         }
     }
 }

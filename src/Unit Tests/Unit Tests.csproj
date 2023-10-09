@@ -18,10 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\BI Platform\Controllers\" />
-    <Folder Include="Modules\Bi Platform\Core\" />
+    <Folder Include="Modules\Bi Platform\Core\MockStore\" />
     <Folder Include="Modules\Bi Platform\Models\" />
     <Folder Include="Modules\Bi Platform\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BI Platform\BI Platform.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,21 @@
-﻿using BI_Platform.Common;
-using BI_Platform.Common.Storage;
+﻿using BI_Platform.Common.Storage;
+using BI_Platform.Core.Deserializers;
+using BI_Platform.Services.Storage;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BI_Platform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StorageController : ControllerBase
+    public class CacheController : ControllerBase
     {
+        private ICacheService _cacheService;
+
+        public CacheController(ICacheService storageService)
+        {
+            _cacheService = storageService;
+        }
+
         [HttpPost("csv")]
         public IActionResult UploadCsv(IFormFile file)
         {
@@ -25,7 +33,7 @@ namespace BI_Platform.Controllers
             using (var reader = new StreamReader(file.OpenReadStream()))
             {
                 var callRecords = csvDeserializer.Deserialize(reader);
-                CallRecordContext.Instance.AddRange(callRecords);
+                _cacheService.Add(callRecords);
             }
 
             return Ok("File processed");
