@@ -9,6 +9,6 @@
         public int Duration { get; set; } = 0;                      // Duration of the call in seconds
         public decimal Cost { get; set; } = new decimal();          // The billable cost of the call to 3 decimal places
         public string Reference { get; set; } = string.Empty;       // Unique reference for the call
-        public string Currency { get; set; } = string.Empty;        // Currency for the cost in ISO alpha-3 format
+        public string Currency { get; set; } = string.Empty;        // Currency for the cost in ISO alpha-3 format 
     }
 }

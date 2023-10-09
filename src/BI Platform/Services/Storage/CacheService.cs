@@ -14,7 +14,6 @@ namespace BI_Platform.Services.Storage
 
         public void Add(CallRecord callRecord)
         {
-            if (_cache.Any(c => c.Equals(callRecord))) return;
             _cache.Add(callRecord);
         }
 
