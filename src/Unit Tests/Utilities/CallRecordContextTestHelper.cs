@@ -12,7 +12,7 @@ namespace Unit_Tests.Utilities
     {
         public static void Populate()
         {
-            string filePath = @".\Data\techtest_cdr.csv";
+            string filePath = @".\Data\CallRecords.csv";
 
             var csvDeserializer = new CsvDeserializer();
             using (var reader = new StreamReader(filePath))

@@ -20,8 +20,7 @@ namespace BI_Platform.Controllers
         [HttpGet]
         public ActionResult<List<CallRecord>> Get()
         {
-            var callRecords = _callRecordService.GetAllRecords();
-            return callRecords;
+            return _callRecordService.GetAllRecords();
         }
 
         [HttpGet("peakUsageTimes")]
@@ -32,9 +31,21 @@ namespace BI_Platform.Controllers
                 var peakTimesGroups = _callRecordService.GetPeakUsage();
                 return peakTimesGroups.Select(g => new CallsByHour() { Day = g.Key.ToString(), CallCount = g.Count() }).ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                // Log the exception as per your logging strategy
+                return StatusCode(500, "Internal server error. Please try again later.");
+            }
+        }
+
+        [HttpGet("dailyCallStreakPerCaller")]
+        public ActionResult<List<CallerLongestStreak>> GetLongestDailyCallStreak()
+        {
+            try
+            {
+                return _callRecordService.LongestDailyCallStreakPerCaller();   
+            }
+            catch (Exception)
+            {
                 return StatusCode(500, "Internal server error. Please try again later.");
             }
         }

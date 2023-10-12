@@ -31,7 +31,7 @@ namespace Unit_Tests.Modules.BI_Platform.Controllers
             
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(callRecords, typeof(List<CallRecord>));
-            Assert.AreEqual(callRecords.Count, 13035);
+            Assert.AreEqual(callRecords.Count, 40);
         }
 
         [TestMethod]
@@ -46,7 +46,25 @@ namespace Unit_Tests.Modules.BI_Platform.Controllers
 
             var orderedTestList = peakTimeGroups.OrderByDescending(p => p.CallCount);
             Assert.IsTrue(orderedTestList.SequenceEqual(peakTimeGroups));
+        }
 
+        [TestMethod]
+        public void controller_GetLongestDailyCallStreak()
+        {
+            var result = _controller.GetLongestDailyCallStreak();
+            var longestStreaks = result.Value;
+
+            Assert.IsNotNull(longestStreaks);
+            Assert.IsInstanceOfType(longestStreaks, typeof(List<CallerLongestStreak>));
+            foreach (var longestStreak in longestStreaks)
+            {
+                for (int i = 1; i < longestStreak.Dates.Count; i++) {
+                    Assert.IsTrue((longestStreak.Dates[i] - longestStreak.Dates[i - 1]).TotalDays == 1);
+                }
+            }
+
+            var orderedTestList = longestStreaks.OrderByDescending(p => p.Streak);
+            Assert.IsTrue(orderedTestList.SequenceEqual(longestStreaks));
         }
     }
 }
