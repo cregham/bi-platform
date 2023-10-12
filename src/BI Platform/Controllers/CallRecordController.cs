@@ -21,7 +21,22 @@ namespace BI_Platform.Controllers
         public ActionResult<List<CallRecord>> Get()
         {
             var callRecords = _callRecordService.GetAllRecords();
-            return Ok(callRecords);
+            return callRecords;
+        }
+
+        [HttpGet("peakUsageTimes")]
+        public ActionResult<List<CallsByHour>> GetPeakUsageTimes()
+        {
+            try
+            {
+                var peakTimesGroups = _callRecordService.GetPeakUsage();
+                return peakTimesGroups.Select(g => new CallsByHour() { Day = g.Key.ToString(), CallCount = g.Count() }).ToList();
+            }
+            catch (Exception e)
+            {
+                // Log the exception as per your logging strategy
+                return StatusCode(500, "Internal server error. Please try again later.");
+            }
         }
     }
 }

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Modules\Bi Platform\Controllers\" />
     <Folder Include="Modules\Bi Platform\Core\MockStore\" />
     <Folder Include="Modules\Bi Platform\Models\" />
     <Folder Include="Modules\Bi Platform\Services\" />
@@ -25,6 +26,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BI Platform\BI Platform.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\techtest_cdr.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

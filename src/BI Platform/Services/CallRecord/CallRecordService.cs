@@ -16,5 +16,13 @@ namespace BI_Platform.Services.CallRecordService
         {
             return _callRecordContext;
         }
+
+        public IGrouping<DayOfWeek, CallRecord>[] GetPeakUsage()
+        {
+            return _callRecordContext
+             .GroupBy(cr => cr.CallDate.DayOfWeek)
+             .OrderByDescending(g => g.Count())
+             .ToArray();
+        }
     }
 }

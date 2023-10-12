@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Unit_Tests.Modules.BI_Platform.Core.MockStore
 {
     [TestClass]
-    internal class CallRecordContextTests
+    public class CallRecordContextTests
     {
         [TestMethod]
         public void CallRecordContext_IsNever_Null()
